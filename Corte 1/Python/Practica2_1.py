@@ -60,20 +60,27 @@ def maxVector(v):
             max = v[i]
     
     print("\nEl valor maximo es: ", max)
+        
 
 # II. Procedimiento que busca un elemento en el vector y determinar cuál es su posición.
 def buscarIndex(v, num):
-    index = -1
+
+    if buscarNum(v, num) == True:
+        for i in range(len(v)):
+            if v[i] == num:
+                print("\nEL numero ", num, " tiene la posicion ", (i+1))
+    else:
+        print("\nEl numero ingresado no se encuentra en el vector")
+        
+# Funcion que retorna la cantidad de veces que aparece un numero en un vector
+def buscarNum(v, num):
+    encontrado = False
     for i in range(len(v)):
         if v[i] == num:
-            index = i
+            encontrado = True
             break
-    
-    if index == -1:
-        print("\nEl numero ingresado no se encuentra en el vector")
-    else:
-        print("\nEL numero ", num, " tiene la posicion ", (index+1))
 
+    return encontrado
 
 # III. funcion que permite encontrar la desviación estándar de una muestra de valores almacenados en un vector.
 def desviacionEstandar(v):
@@ -103,49 +110,34 @@ def salir():
     print("\nHasta luego!")
     sys.exit(0)
 
-
-#  Por organizar
-def llenarMatriz(d):
-    for i in range(3):
-        for j in range(3):
-            print("Ingrese valor")
-            d[i][j] = input()
-
 # Main
 if __name__ == '__main__':
-    #x = int(input("Ingrese un numero: "))
-    #verificarNumero(x)
+
+    #Invocando funcion par e impar
+    x = int(input("Ingrese un numero: "))
+    verificarNumero(x)
     
-    #print("Digite numero 1: ")
-    #n1 = int(input())
-    #print("Digite numero 2: ")
-    #n2 = int(input())
+    #Invocando funcion mayor entre dos numeros
+    print("\nDigite numero 1: ")
+    n1 = int(input())
+    print("Digite numero 2: ")
+    n2 = int(input())
+    rta = mayorDosNumeros(n1,n2)
 
-    #rta = mayorDosNumeros(n1,n2)
+    if (rta != None):
+        print("\nEl mayor es: ", rta)
+    else:
+        print("\nSon numeros iguales.")
 
-    #if (rta != None):
-    #    print("El mayor es: ", rta)
-    #else:
-    #    print("Son numeros iguales.")
-
-    
     #Simulando el do while
     while True:
-        print("Digite el tamanio del vector a crear: ")
+        print("\nDigite el tamanio del vector a crear: ")
         t = int(input())
         if t > 0:
             break
-    """
-    #Declarando matriz vacia
-    m = np.zeros((3,3))
-    print("Matriz de ceros")
-    print(m)
-    llenarMatriz(m)
-    print("Matriz creada")
-    print(m)
-    """
+
     #Declarar el vector
-    a = np.empty(t)
+    a = np.zeros(t)
     #Crear un menu
     while True:
         print("\nOpciones de gestion de vectores.")
