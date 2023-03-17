@@ -79,7 +79,7 @@ def buscarIndex(v, num):
 def desviacionEstandar(v):
     return math.sqrt( calcularSumatoria(v) / (len(v) - 1) )
 
-# Funcion para calcular la sumatria de (x - xm)^2
+# Funcion para calcular la sumatoria de (x - xm)^2
 def calcularSumatoria(v):
     suma = 0
     media = calcularMedia(v)
