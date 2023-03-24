@@ -1,0 +1,6 @@
+1001, disco duro 1tb, 215000, 10
+1002, mouse inalambrico logitech, 42900, 5
+1003, Teclado Logitech K380, 159900, 3
+1004, Monitor Samsung Ips De 24 Full Hd, 663900, 2
+1005, cable hdmi 5 metros, 15000, 7
+1006, Teclado mecanico Hyperx, 240000, 8
