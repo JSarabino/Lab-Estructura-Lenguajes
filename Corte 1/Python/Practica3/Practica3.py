@@ -1,3 +1,4 @@
+# 1. Funcion que carga las lineas de un .txt cualquiera
 def cargarDatosLG(localizadorArchivo):
     try:
         listado_productos = []
@@ -13,6 +14,7 @@ def cargarDatosLG(localizadorArchivo):
         mensaje = "Error!, el archivo no esta en " + localizadorArchivo + " o no existe."
         print(mensaje)
 
+# Funcion que carga los productos de producto.txt
 def cargaDatosEsp(localizadorArchivo):
     try:
         separador = ', '
@@ -33,6 +35,7 @@ def cargaDatosEsp(localizadorArchivo):
         mensaje = "Error!, el archivo no esta en " + localizadorArchivo + " o no existe."
         print(mensaje)
 
+# 2. Funcion que agrega un producto a la lista incluyendo al archivo producto.txt
 def addProducto(localizadorArchivo):
     print("\n---------Ingresar producto---------\n")
     codigo = int(input("Ingrese el codigo: "))
@@ -51,7 +54,53 @@ def addProducto(localizadorArchivo):
     archivo.write(linea)
     archivo.close()
 
+# 3. Funcion que permite modificar un prodcuto de la lista
+def modificarProducto(localizadorArchivo, op, filas):
+    
+    dato = input("Ingrese " + opcion(op) + " del producto: ")
+    contenido = list()
 
+    with open(localizadorArchivo, 'r+') as archivo:
+        contenido = archivo.readlines()
+        
+        for fila in filas:
+            columnas = contenido[fila-1].split(', ')
+            columnas[op] = dato
+            if op == 3:
+                contenido[fila-1] = ', '.join(columnas) + '\n'
+            else:
+                contenido[fila-1] = ', '.join(columnas)
+            
+    with open(localizadorArchivo, 'w') as archivo:
+        archivo.writelines(contenido)
+
+    return True
+
+# Funcion que comprueba que el producto existe y devuelve el numero de la fila
+def buscarProducto(localizadorArchivo, codigo):
+    separador = ', '
+    contFilas = 0
+    listado_productos = []
+    with open (localizadorArchivo, 'r') as archivo:
+        for linea in archivo:
+            linea = linea.rstrip("\n")
+            columna = linea.split(separador)
+            contFilas = contFilas + 1
+            if codigo == int(columna[0]):
+                return True, contFilas
+        archivo.close()
+    return False, contFilas
+
+# Funcion que retorna el mensaje adecuado segun la opcion
+def opcion(op):
+    if op == 1:
+        return "el nombre"
+    elif op == 2:
+        return " el precio"
+    else:
+        return "la cantidad"
+
+# Funcion main
 if __name__ == '__main__':
     localizadorArchivo = "Practica3/producto.txt"
     listaProductos = []
@@ -63,6 +112,36 @@ if __name__ == '__main__':
         listaProductos = cargaDatosEsp(localizadorArchivo)
         print(listaProductos)
     
-    addProducto(localizadorArchivo)
-    print(listaProductos)
+    #addProducto(localizadorArchivo)
+    #print(listaProductos)
+
+    while True:
+        codMod = int(input("\nDigite el codigo del producto a modificar: "))
+        encontrado, fila = buscarProducto(localizadorArchivo, codMod)
+        if encontrado == True:
+            print("\nProducto a modificar:")
+            print(listaProductos[fila-1])
+            break
+    
+    while True:
+        print("\n1. Cambiar nombre.")
+        print("2. Cambiar precio.")
+        print("3. Cambiar cantidad.\n")
+
+        op = int(input("Ingrese la opcion: "))
+
+        if op > 0 and op < 4:
+            break
+    #Indica las filas a modificar en el .txt
+    filas = [fila]
+
+    if modificarProducto(localizadorArchivo, op, filas) == True:
+        listaProductos = cargaDatosEsp(localizadorArchivo)
+        print("\nProducto modificado:")
+        print(listaProductos[fila-1])
+        
+
+    
+
+
     
