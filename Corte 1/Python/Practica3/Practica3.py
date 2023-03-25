@@ -80,7 +80,6 @@ def modificarProducto(localizadorArchivo, op, filas):
 def buscarProducto(localizadorArchivo, codigo):
     separador = ', '
     contFilas = 0
-    listado_productos = []
     with open (localizadorArchivo, 'r') as archivo:
         for linea in archivo:
             linea = linea.rstrip("\n")
@@ -100,8 +99,28 @@ def opcion(op):
     else:
         return "la cantidad"
 
+# 4. Funcion que permite borrar un prodcuto por su codigo
+def eliminarProducto(localizadorArchivo, filas):
+    contenido = list()
+    with open(localizadorArchivo, 'r+') as archivo:
+        contenido = archivo.readlines()
+        
+        for fila in filas:
+            columnas = contenido[fila-1].split(', ')
+            if filas[0] == fila-1:
+                contenido[fila-1] = ', '.join(columnas) + '\n'
+            else: 
+                contenido[fila-1] = ''
+    with open(localizadorArchivo, 'w') as archivo:
+        archivo.writelines(contenido)
+
+    return True
+        
+
 # Funcion main
 if __name__ == '__main__':
+    
+    # 1.
     localizadorArchivo = "Practica3/producto.txt"
     listaProductos = []
     listaProductos = cargaDatosEsp(localizadorArchivo)
@@ -112,9 +131,12 @@ if __name__ == '__main__':
         listaProductos = cargaDatosEsp(localizadorArchivo)
         print(listaProductos)
     
-    #addProducto(localizadorArchivo)
-    #print(listaProductos)
+    # 2.
+    addProducto(localizadorArchivo)
+    listaProductos = cargaDatosEsp(localizadorArchivo)
+    print(listaProductos)
 
+    # 3.
     while True:
         codMod = int(input("\nDigite el codigo del producto a modificar: "))
         encontrado, fila = buscarProducto(localizadorArchivo, codMod)
@@ -139,9 +161,18 @@ if __name__ == '__main__':
         listaProductos = cargaDatosEsp(localizadorArchivo)
         print("\nProducto modificado:")
         print(listaProductos[fila-1])
-        
-
     
+    # 4.
+    productoEliminado = []
+    while True:
+        codBorrar = int(input("\nDigite el codigo del producto a borrar: "))
+        encontrado, fila = buscarProducto(localizadorArchivo, codBorrar)
+        if encontrado == True:
+            productoEliminado = [listaProductos[fila-1]]
+            break
 
+    filas = [fila]
 
-    
+    if eliminarProducto(localizadorArchivo, filas) == True:
+        print("\nProducto eliminado:")
+        print(productoEliminado)
