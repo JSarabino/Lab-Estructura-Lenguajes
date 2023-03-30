@@ -1,5 +1,1 @@
-fecha, horaI, horaF, codVideo, cedulaDoc, Activo
-fecha, horaI, horaF, codVideo, cedulaDoc, Activo
-fecha, horaI, horaF, codVideo, cedulaDoc, Terminado
-fecha, horaI, horaF, codVideo, cedulaDoc, Activo
-fecha, horaI, horaF, codVideo, cedulaDoc, Terminado
+30 Marzo, 4pm, 6pm, 1001, 22423560, Terminado
