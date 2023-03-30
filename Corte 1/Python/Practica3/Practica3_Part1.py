@@ -1,3 +1,4 @@
+# Parte I: Manejo de listas:
 # 1. Funcion que carga las lineas de un .txt cualquiera
 def cargarDatosLG(localizadorArchivo):
     try:

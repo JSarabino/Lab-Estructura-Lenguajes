@@ -1,0 +1,6 @@
+1001, Sony, 3456789012345, Inactivo
+1002, Epson, 9876543210987, Inactivo
+1003, Samsung, 4567890123456, Inactivo
+1004, Xiaomi, 1234567890123, Inactivo
+1005, Acer, 2345678901234, Inactivo
+1006, Panasonic, 5678901234567, Inactivo

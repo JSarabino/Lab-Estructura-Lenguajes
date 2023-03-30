@@ -1,0 +1,5 @@
+fecha, horaI, horaF, codVideo, cedulaDoc, Activo
+fecha, horaI, horaF, codVideo, cedulaDoc, Activo
+fecha, horaI, horaF, codVideo, cedulaDoc, Terminado
+fecha, horaI, horaF, codVideo, cedulaDoc, Activo
+fecha, horaI, horaF, codVideo, cedulaDoc, Terminado
