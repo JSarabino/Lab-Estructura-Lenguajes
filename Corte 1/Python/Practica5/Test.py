@@ -22,9 +22,7 @@ def menuPrincipal(op):
                     
         case 2: 
             while True:
-                cantG = int(input("\nDigite la cantidad de grupos a crear: "))
-                if cantG > 0:
-                    crearGrupos(cantG)
+                crearGrupo()
 
         case 3: asignarMiembros()
         case 4: 
@@ -62,15 +60,17 @@ def crearPersonas(cantP):
     opMenuPrincipal()
     
 # B. Crear Grupos de Investigación.
-def crearGrupos(cantG):
-    for i in range(cantG):
-        #Pedir datos 
-        nombre = input("\nDigite el nombre: ")
-        ubicacion = input("Digite la ubicacion: ")
-        director = asignarDirector()
-        #Crear objeto Persona y agregar a la lista lsPersonas
-        objGrupo = GrupoInvestiacion(nombre,ubicacion,director)
-        lsGrupos.append(objGrupo)
+def crearGrupo():
+    #Pedir datos 
+    nombre = input("\nDigite el nombre: ")
+    ubicacion = input("Digite la ubicacion: ")
+    director = asignarDirector()
+    #Crear objeto Persona y agregar a la lista lsPersonas
+    objGrupo = GrupoInvestiacion(nombre,ubicacion,director)
+    objGrupo.add_Miembro(director)
+    lsGrupos.append(objGrupo)
+    print("cantidad de grupos: " + str(len(lsGrupos)))
+        
     
     opMenuPrincipal()
 
@@ -95,7 +95,7 @@ def buscarPersona(id):
     for i in range(len(lsPersonas)):
         if lsPersonas[i].get_Identificacion() == id:
             persona = lsPersonas[i]
-            break
+            return persona
     return persona
 
 # C. Asignar miembros a un grupo de investigación.
@@ -114,19 +114,21 @@ def asignarMiembros():
 
             if len(grupo.get_Miembros()) > 0:
                 #POST: La cantidad de miembros en el grupo es mayor a 0
-                pertenece = perteneceAGrupo(id,nombreG)
-
-                if pertenece != False:
+                pertenece = perteneceAGrupo(nuevoMiembro,grupo)
+                if pertenece == False:
                     #POST: la persona no es parte de los miembros del grupo
                     for i in range(len(lsGrupos)):
                         if lsGrupos[i].get_Nombre() == nombreG:
+                            print("se ha agregado a: " + str(lsGrupos[i].get_Nombre()))
                             lsGrupos[i].add_Miembro(nuevoMiembro)
+                            break
                 else:
                     print("\nLa persona ya pertenece al grupo.")
 
             else:
                 for i in range(len(lsGrupos)):
                     if lsGrupos[i].get_Nombre() == nombreG:
+                        print("se ha agregado a: " + str(lsGrupos[i].get_Nombre()))
                         lsGrupos[i].add_Miembro(nuevoMiembro)            
         else:
             print("\nLa persona no existe.")
@@ -142,16 +144,14 @@ def buscarGrupo(nombreG):
             break
     return grupo
 
-def perteneceAGrupo(id, nombreG):
+def perteneceAGrupo(persona, grupo):
     pertenece = False
-    persona = buscarPersona(id)
-    grupo = buscarGrupo(nombreG)
-
-    if persona != None and grupo != None:
-        for i in range(len(grupo.get_Miembros())):
-            if grupo.get_Miembros[i].get_Identificacion() == persona.get_Identificacion():
-                pertenece = True
-                break
+    lsMiembros = grupo.get_Miembros()
+    for i in range(len(grupo.get_Miembros())):
+        if lsMiembros[i].get_Identificacion() == persona.get_Identificacion():
+            print(lsMiembros[i].get_Identificacion())
+            pertenece = True
+            return pertenece
     return pertenece
 
 # D. Consultas:
@@ -161,7 +161,7 @@ def buscarDirector():
     grupo = buscarGrupo(nombreG)
 
     if grupo != None:
-        print("El director del grupo es: " + repr(grupo.get_Director))
+        print("El director del grupo es: " + repr(grupo.get_Director()))
     else:
         print("\nEl grupo no existe.")
 
@@ -194,29 +194,41 @@ def verificarGrupo():
             verificarPersona =  buscarPersona(id)
             if verificarPersona != None:
                 #POST: la persona existe
-                pertenece = perteneceAGrupo(id,nombreG)
+                pertenece = perteneceAGrupo(verificarPersona,grupo)
                 if pertenece != False:
-                    print("\nLa persona SI pertenece al grupo")
+                    print("\nLa persona SI pertenece al grupo.")
                 else:
-                    print("\nLa persona NO pertenece al grupo")                 
+                    print("\nLa persona NO pertenece al grupo.")                 
             else:
                 print("\nLa persona no existe.")  
         else:
-            print("\nLa persona no pertenece") 
+            print("\nNo hay miembros en el grupo.") 
     else:
         print("\nEl grupo no existe.")
 
 # ¿Cuál es el grupo de investigación que tiene más miembros?
 def mayorCantGrupo():
     if len(lsGrupos) > 0:
-        mayor = len(lsGrupos[0].get_Miembros())
+        mayor = cantMiembros(lsGrupos[0])
         grupoMayor = lsGrupos[0]
         for i in range(len(lsGrupos)-1):
-            if mayor < len(lsGrupos[i+1].get_Miembros()):
+            if mayor < cantMiembros(lsGrupos[i+1]):
+                mayor = cantMiembros(lsGrupos[i+1])
                 grupoMayor = lsGrupos[i+1]
-        print("El grupo con mas miembros es: " + grupoMayor.get_Nombre())
+
+        if mayor > 1:
+            print("\nEl grupo con mas miembros es: " + grupoMayor.get_Nombre() + " con " + str(mayor) + " miembros.")
+        else:
+            print("\nNo hay miembros asignados a ningun grupo.")
+        
     else:
-        print("\nNo hay grupos")
+        print("\nNo hay grupos.")
+
+def cantMiembros(grupo):
+    cant = 0
+    for i in range(len(grupo.get_Miembros())):
+        cant += 1
+    return cant
 
 # Salir del programa
 def salir():
@@ -244,4 +256,5 @@ if __name__ == '__main__':
 
     print(repr(grupo1))
     print(f"Grupo1: {grupo1}")
+    87-146
     '''
