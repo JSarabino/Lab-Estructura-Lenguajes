@@ -12,7 +12,7 @@ class Persona(ABC):
         self._nombre = nombre
         self._apellidos = apellidos
 
-    # Getters and Setters
+    #Getters and Setters
     def get_Identificacion(self):
         return self._identificacion
 
@@ -30,8 +30,8 @@ class Persona(ABC):
 
     def set_Apellidos(self, apellidos):
         self._apellidos = apellidos
-    # Definir metodo abstracto
 
+    #Definir metodo abstracto
     @abstractmethod
     def mostrarPersona(self):
         pass

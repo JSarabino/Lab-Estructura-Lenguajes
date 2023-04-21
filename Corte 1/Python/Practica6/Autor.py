@@ -1,10 +1,11 @@
 from Persona import Persona
 
-
 class Autor(Persona):
-    __pais: set
-    __Libros = []
+    #Atributos
+    __pais: str
+    __libros = []
 
+    #Constructor
     def __init__(self, identificacion, nombre, apellidos, pais):
         self._identificacion = identificacion
         self._nombre = nombre
@@ -17,8 +18,18 @@ class Autor(Persona):
 
     def set_Pais(self, pais):
         self.__pais = pais
+    
+    def get_Libros(self):
+        return self.__libros
+
+    def set_Libros(self, libro):
+        self.__libros.append(libro)
 
     # implementar el metodo abstracto
     def mostrarPersona(self):
         print(
-            f"Identificacion: {self._identificacion}, Nombre: {self._nombre}, Apellidos: {self._apellidos}")
+            f"\nIdentificacion: {self._identificacion}, Nombre: {self._nombre}, Apellidos: {self._apellidos}, Pais: {self.__pais}")
+        #Datos de los libros
+        print("Libros: ", len(self.__libros))
+        for i in self.__libros:
+            print(i)

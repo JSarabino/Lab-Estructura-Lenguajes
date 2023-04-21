@@ -1,7 +1,10 @@
-from Autor import Autor
-from Narrador import Narrador
 from Persona import Persona
-
+from Narrador import Narrador
+from Autor import Autor
+from Producto import Producto
+from Libro import Libro
+from AudioLibro import AudioLibro
+from Periodico import Periodico
 
 class SistemaLibreria:
     personas = []
