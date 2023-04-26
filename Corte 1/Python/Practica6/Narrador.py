@@ -33,7 +33,3 @@ class Narrador(Persona):
         print("Idiomas: ", len(self.__idiomas))
         for i in self.__idiomas:
             print(i)
-        #Datos de los audio libros
-        print("Audio libros: ", len(self.__audioLibros))
-        for i in self.__audioLibros:
-            print(i)

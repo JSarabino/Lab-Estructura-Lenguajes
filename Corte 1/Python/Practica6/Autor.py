@@ -29,7 +29,3 @@ class Autor(Persona):
     def mostrarPersona(self):
         print(
             f"\nIdentificacion: {self._identificacion}, Nombre: {self._nombre}, Apellidos: {self._apellidos}, Pais: {self.__pais}")
-        #Datos de los libros
-        print("Libros: ", len(self.__libros))
-        for i in self.__libros:
-            print(i)

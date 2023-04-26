@@ -15,6 +15,49 @@ class SistemaLibreria:
 
     # Adicionar personas
     def adicionarPersonas(self, op):
+
+        # Crear Productos para prueba
+        libro1 = Libro(111,"Libro1",2300,"Descripcion libro1",23,"J123K13")
+        libro2 = Libro(222,"Libro2",7300,"Descripcion libro2",12,"2AD3I60")
+
+        audoLibro1 = AudioLibro(333,"audoLibro1",6700,"Descripcion audoLibro1",65,"dwd1d1",40)
+        audoLibro2 = AudioLibro(444,"audoLibro2",15300,"Descripcion audoLibro2",18,"awd43t34y",20)
+
+        periodico1 = Periodico(555,"periodico1",8500,"Descripcion periodico1",93,"12d312d","Cali","Ingles")
+        periodico2 = Periodico(666,"periodico2",90300,"Descripcion periodico2",54,"J123Kh56","Popayan","Espaniol")
+
+        # Adicionar los objetos a la lista de productos[]
+        self.catalogoProductos.append(libro1)
+        self.catalogoProductos.append(libro2)
+        self.catalogoProductos.append(audoLibro1)
+        self.catalogoProductos.append(audoLibro2)
+        self.catalogoProductos.append(periodico1)
+        self.catalogoProductos.append(periodico2)
+
+        # Crear Personas
+        autor1 = Autor(111, "Mario", "Piatini", "España")
+        autor1.set_Libros(libro1)
+
+        autor2 = Autor(222, "Oscar Felis", "Garcia", "España")
+        autor2.set_Libros(libro2)
+
+        autor3 = Autor(333, "Francisco", "Pino", "Colombia")
+        autor3.set_Libros(libro1)
+
+        narrador1 = Narrador(444, "Javier", "Fernandes")
+        narrador1.set_Idioma("Ingles")
+        narrador1.set_Idioma("Aleman")
+        narrador1.set_AudioLibros(audoLibro1)
+        narrador1.set_AudioLibros(audoLibro2)
+
+        # Adicionar los objetos a la lista de personas[]
+        self.personas.append(autor1)
+        self.personas.append(autor2)
+        self.personas.append(autor3)
+        self.personas.append(narrador1)
+
+
+
         #Datos generales
         id = int(input("\nIngrese la identificacion: "))
         nombres = input("Ingrese los nombres: ")
@@ -33,19 +76,6 @@ class SistemaLibreria:
 
     # Adicionar productos
     def adicionarProductos(self, op):
-
-        autor1 = Autor(111, "Mario", "Piatini", "España")
-        autor2 = Autor(222, "Oscar Felis", "Garcia", "España")
-        autor3 = Autor(333, "Francisco", "Pino", "Colombia")
-        narrador1 = Narrador(444, "Javier", "Fernandes")
-        narrador1.set_Idioma("Ingles")
-        narrador1.set_Idioma("Aleman")
-
-        # adicionar los objetos a la lista de personas[]
-        self.personas.append(autor1)
-        self.personas.append(autor2)
-        self.personas.append(autor3)
-        self.personas.append(narrador1)
 
         #Datos generales
         id = int(input("\nIngrese el id del producto: "))
@@ -109,15 +139,29 @@ class SistemaLibreria:
 
     # Consultar libro por autor
     def librosPorAutor(self, ident):
+        autor = None
         for i in range(len(self.personas)):
             if self.personas[i].get_Identificacion() == ident:
-                print(self.personas[i].mostrarPersona())
+                autor = self.personas[i]
+                break
+        
+        #Datos de los libros
+        print("Libros: ", len(autor.get_Libros()))
+        for i in autor.get_Libros():
+            print(i.get_Nombre())
 
     # Consultar audio libro por narrador
     def audioLibrosPorNarrador(self, ident):
+        narrador = None
         for i in range(len(self.personas)):
             if self.personas[i].get_Identificacion() == ident:
-                print(self.personas[i].mostrarPersona())
+                narrador = self.personas[i]
+                break
+
+        #Datos de los audio libros
+        print("Libros: ", len(narrador.get_AudioLibros()))
+        for i in narrador.get_AudioLibros():
+            print(i.get_Nombre())
 
     ##OTROS
     def mostrarPersonas(self):
@@ -206,3 +250,4 @@ def salir():
 # Programa principal
 if __name__ == "__main__":
     opMenuPrincipal()
+    
