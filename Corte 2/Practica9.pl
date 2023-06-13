@@ -62,6 +62,10 @@ matriculo(diana,etica,3.9).
 %Regla 1: Escriba una regla que permita retornar cuáles son los estudiantes de un profesor.
 estudiantesDe(P,E):-ensenya(P,A),matriculo(E,A,_).
 
+estudiantes_de_profesor(Profesor, Estudiantes) :-ensenya(Profesor, Materia),matriculo(Estudiante, Materia, _).
+
+
+
 %Regla 2: Escriba una regla que permita retornar cuáles son los profesores las asignaturas matriculadas por un
 %estudiante. Haga uso de una lista.
 %findall
@@ -97,8 +101,8 @@ perdieronMateria(L):- findall(E,(matriculo(E,A,N),N<3.0),L).
 
 %Regla 8: Escriba una regla que permita contar el numero matriculas que se realizaron en un programa.
 
-contar([],0):-!.%caso-base
-contar([Cabeza|Cola],N):- contar(Cola,P), P is 1+N.
+contar([],0). %caso-base
+contar([Cabeza|Cola],T):- contar(Cola,P), T is 1 + P.
 
-contarMatriculas(P):- listaMatriculaPrograma(P,L),contar(L,N).
-listaMatriculaPrograma(P,L):- findall(P,(perteneceA(E,P),matriculo(E,_,_)),L).
+contarMatriculas(P):- listaMatriculaPrograma(P,L),contar(L,T), write(T).
+listaMatriculaPrograma(P,L):- findall(Estudiante,(perteneceA(Estudiante,P),matriculo(Estudiante,_,_)),L).
