@@ -20,6 +20,23 @@
   )
 )
 
+;Sumatoria con for
+(define (sumatoria n)
+  (define sum 0)
+  (for ([i (in-range 1 (+ n 1))])
+    (set! sum (+ sum i))
+    (writeln i)
+  )
+  sum
+)
+
+;Sumatoria con if y recursivo
+(define (sumatoriaR n)
+  (if (= n 0) 0
+      (+ n (sumatoriaR (- n 1)))
+  )
+)
+
 ;4. Defina una función que permita encontrar el factorial de un número de forma iterativa y recursiva.
 (define (factorial n)
   (cond ((= n 0) 1)
